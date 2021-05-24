@@ -38,7 +38,7 @@ namespace Usuario.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] User user)
         {
-            if (_service.Incluir(user.UserID, user.Password)) return Ok();
+            if (_service.Incluir(user.email, user.Password)) return Ok();
 
             return BadRequest();
         }
@@ -53,9 +53,9 @@ namespace Usuario.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] ApplicationUser user)
+        public IActionResult Put([FromBody] User user)
         {
-            if (_service.Atualizar(user.Email, user.UserName)) return Ok();
+            if (_service.Atualizar(user.email, user.PhoneNumber)) return Ok();
 
             return BadRequest();
         }

@@ -93,3 +93,4 @@ C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp
 C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.0\Usuario.dll
 C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.0\Usuario.pdb
 C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.0\Usuario.genruntimeconfig.cache
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.0\Usuario.csprojAssemblyReference.cache

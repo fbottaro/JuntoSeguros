@@ -30,12 +30,12 @@ namespace Usuario.Security
         public bool ValidateCredentials(User user)
         {
             bool credenciaisValidas = false;
-            if (user != null && !String.IsNullOrWhiteSpace(user.UserID))
+            if (user != null && !String.IsNullOrWhiteSpace(user.email))
             {
                 // Verifica a existência do usuário nas tabelas do
                 // ASP.NET Core Identity
                 var userIdentity = _userManager
-                    .FindByNameAsync(user.UserID).Result;
+                    .FindByNameAsync(user.email).Result;
                 if (userIdentity != null)
                 {
                     // Efetua o login com base no Id do usuário e sua senha
@@ -58,10 +58,10 @@ namespace Usuario.Security
         public Token GenerateToken(User user)
         {
             ClaimsIdentity identity = new ClaimsIdentity(
-                new GenericIdentity(user.UserID, "Login"),
+                new GenericIdentity(user.email, "Login"),
                 new[] {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID)
+                        new Claim(JwtRegisteredClaimNames.UniqueName, user.email)
                 }
             );
 
