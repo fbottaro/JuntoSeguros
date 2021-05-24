@@ -11,3 +11,4 @@ Favor usar uma senha forte como AdminUsuario01!, o usuario é do Identity e exig
 Caso o swagger não entenda a policy Bearer, favor comentar o [Authorize("Bearer")] na controller UsuarioController, linha 12.
 
 Deste modo é possível testar os endpoints via UI.
+http://localhost:55491/swagger/index.html
