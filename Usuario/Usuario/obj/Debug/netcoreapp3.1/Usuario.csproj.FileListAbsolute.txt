@@ -1,0 +1,5 @@
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.1\Usuario.csprojAssemblyReference.cache
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.1\Usuario.AssemblyInfoInputs.cache
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.1\Usuario.AssemblyInfo.cs
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.1\Usuario.csproj.CoreCompileInputs.cache
+C:\Users\Fernando\source\repos\JuntoSeguros\Usuario\Usuario\obj\Debug\netcoreapp3.1\Usuario.MvcApplicationPartsAssemblyInfo.cache
