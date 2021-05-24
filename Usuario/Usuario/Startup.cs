@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Usuario.Core;
 using Usuario.Data;
 using Usuario.Domain;
 using Usuario.Security;
@@ -58,6 +59,7 @@ namespace Usuario
                 .AddDefaultTokenProviders();
 
             services.AddScoped<AccessManager>();
+            services.AddScoped<UsuarioService>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
