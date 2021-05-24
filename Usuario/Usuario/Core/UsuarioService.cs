@@ -40,7 +40,7 @@ namespace Usuario.Core
 
         public virtual bool Incluir(string p_user, string pwd)
         {
-            var user = new ApplicationUser { UserName = p_user };
+            var user = new ApplicationUser { UserName = p_user, Email = p_user };
             var resultado = _userManager
                    .CreateAsync(user, pwd).Result;
 
@@ -58,11 +58,11 @@ namespace Usuario.Core
             return _userManager.ChangePasswordAsync(user, password, newpassword).Result.Succeeded;
         }
 
-        public virtual bool Atualizar(string email, string name)
+        public virtual bool Atualizar(string email, string PhoneNumber)
         {
             var user = _userManager.Users.Where(
                     p => p.Email == email).FirstOrDefault();
-            user.UserName = name;
+            user.PhoneNumber = PhoneNumber;
             return _userManager.UpdateAsync(user).Result.Succeeded;
         }
 

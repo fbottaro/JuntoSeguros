@@ -45,7 +45,7 @@ namespace Usuario.Controllers
 
         [HttpPost]
         [Route("TrocarPwd")]
-        public IActionResult TrocarPwd([FromBody] dynamic obj)
+        public IActionResult TrocarPwd([FromBody] ChangePWD obj)
         {
             if (_service.ChangePassword(obj.email, obj.password, obj.newpwd)) return Ok();
 
