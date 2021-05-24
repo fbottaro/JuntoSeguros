@@ -1,3 +1,4 @@
+ï»¿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Usuario.Data;
 using Usuario.Domain;
 using Usuario.Security;
@@ -25,6 +27,32 @@ namespace Usuario
         {
             services.AddDbContext<ApplicationDbContext>();
 
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationSchemeâ€Œâ€‹,
+                    Name = JwtBearerDefaults.AuthenticationSchemeâ€Œâ€‹
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
+                    }
+                });
+            });
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -40,8 +68,8 @@ namespace Usuario
                     .Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
 
-            // Aciona a extensão que irá configurar o uso de
-            // autenticação e autorização via tokens
+            // Aciona a extensÃ£o que irÃ¡ configurar o uso de
+            // autenticaÃ§Ã£o e autorizaÃ§Ã£o via tokens
             services.AddJwtSecurity(
                 signingConfigurations, tokenConfigurations);
 
@@ -61,6 +89,17 @@ namespace Usuario
 
             new IdentityInitializer(context, userManager, roleManager)
                .Initialize();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Usuario");
+                //c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Usuario.Core;
 using Usuario.Domain;
+using Usuario.Security;
 
 namespace Usuario.Controllers
 {
@@ -35,9 +36,17 @@ namespace Usuario.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ApplicationUser user)
+        public IActionResult Post([FromBody] User user)
         {
-            if (_service.Incluir(user)) return Ok();
+            if (_service.Incluir(user.UserID, user.Password)) return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword([FromBody] string email, [FromBody] string password, [FromBody] string newpwd)
+        {
+            if (_service.ChangePassword(email, password, newpwd)) return Ok();
 
             return BadRequest();
         }
@@ -45,7 +54,7 @@ namespace Usuario.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] ApplicationUser user)
         {
-            if (_service.Atualizar(user)) return Ok();
+            if (_service.Atualizar(user.Email, user.UserName)) return Ok();
 
             return BadRequest();
         }

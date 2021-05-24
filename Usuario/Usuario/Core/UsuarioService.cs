@@ -15,7 +15,12 @@ namespace Usuario.Core
         {
         }
 
-        public ApplicationUser Obter(string email)
+        public UsuarioService(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public virtual ApplicationUser Obter(string email)
         {
             email = email?.Trim().ToUpper();
             if (!String.IsNullOrWhiteSpace(email))
@@ -27,16 +32,17 @@ namespace Usuario.Core
                 return null;
         }
 
-        public IEnumerable<ApplicationUser> ListarTodos()
+        public virtual IEnumerable<ApplicationUser> ListarTodos()
         {
             return _userManager.Users
                 .OrderBy(p => p.UserName).ToList();
         }
 
-        public bool Incluir(ApplicationUser user)
+        public virtual bool Incluir(string p_user, string pwd)
         {
+            var user = new ApplicationUser { UserName = p_user };
             var resultado = _userManager
-                   .CreateAsync(user).Result;
+                   .CreateAsync(user, pwd).Result;
 
             if (resultado.Succeeded)
             {
@@ -45,12 +51,22 @@ namespace Usuario.Core
             return resultado.Succeeded;
         }
 
-        public bool Atualizar(ApplicationUser user)
+        public virtual bool ChangePassword(string email, string password, string newpassword)
         {
+            var user = _userManager.Users.Where(
+                    p => p.Email == email).FirstOrDefault();
+            return _userManager.ChangePasswordAsync(user, password, newpassword).Result.Succeeded;
+        }
+
+        public virtual bool Atualizar(string email, string name)
+        {
+            var user = _userManager.Users.Where(
+                    p => p.Email == email).FirstOrDefault();
+            user.UserName = name;
             return _userManager.UpdateAsync(user).Result.Succeeded;
         }
 
-        public bool Excluir(string email)
+        public virtual bool Excluir(string email)
         {
             return _userManager.DeleteAsync(_userManager.Users.Where(
                    p => p.Email == email).FirstOrDefault()).Result.Succeeded;
